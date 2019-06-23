@@ -1,2 +1,6 @@
 # keyValueDao
 dao lib for key value stores (mostly redis)
+
+After tMysqlPromiseDao and tMongoDao, this is the third implementation of the DAO interface in nodejs. First implementation on mysql was using the database schema. In MongoDao it was necessary to find a solution for schemas. Superstruct was chosen for this. For Redis and key-value stores, it is not possible to simple query the collection. It is needed to maintain indexes within the library. The index can be stored on the same server within a separate namespace. In Redis it is then possible to do range queries. Therefor, it is also possible to store the index on a separate server. That means it is possible to store the index for one collection on a separate server. This structure can bake it possible to reduce the pressure and the work for maintaining the index from the database server and split the required resources to multiple servers. In fact, with the approach demonstrated in this library, it would even be possible to store data in mongoDB or cassandra with a single index for the ID. Other indexes can be "outsourced" to a separate Key-Value store.
+
+Please see the test.js file, how the library is currently used. 
